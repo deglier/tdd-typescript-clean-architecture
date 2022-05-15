@@ -5,7 +5,7 @@
   "author": "Deglier Amorim",
   "license": "MIT",
   "scripts": {
-    "test": "jest",
+    "test": "jest --no-cache --watchAll",
     "start": "node index.js"
   },
   "devDependencies": {
