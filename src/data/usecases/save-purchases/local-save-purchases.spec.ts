@@ -1,34 +1,5 @@
 import { LocalSavePurchases } from "@/data/usecases";
-import { CacheStore } from "@/data/protocols/cache";
-import { SavePurchases } from "@/domain/usecases";
-import { mockPurchases } from "@/data/tests";
-
-class CacheStoreSpy implements CacheStore {
-  deleteCallsCount = 0;
-  insertCallsCount = 0;
-  deleteKey: string;
-  insertKey: string;
-  insertValues: SavePurchases.Params[] = [];
-  delete(key: string): void {
-    this.deleteCallsCount++;
-    this.deleteKey = key;
-  }
-  insert(key: string, values: any): void {
-    this.insertCallsCount++;
-    this.insertKey = key;
-    this.insertValues = values;
-  }
-  simulateDeleteError(): void {
-    jest.spyOn(CacheStoreSpy.prototype, "delete").mockImplementationOnce(() => {
-      throw new Error();
-    });
-  }
-  simulateInsertError(): void {
-    jest.spyOn(CacheStoreSpy.prototype, "insert").mockImplementationOnce(() => {
-      throw new Error();
-    });
-  }
-}
+import { CacheStoreSpy, mockPurchases } from "@/data/tests";
 
 type SutTypes = {
   sut: LocalSavePurchases;
@@ -45,7 +16,7 @@ const makeSut = (): SutTypes => {
 
 describe("LocalSavePurchases", () => {
   it("Should not delete cache on sut.init", () => {
-    const cacheStore = new CacheStoreSpy();
+    const { cacheStore } = makeSut();
     new LocalSavePurchases(cacheStore);
     expect(cacheStore.deleteCallsCount).toBe(0);
   });
