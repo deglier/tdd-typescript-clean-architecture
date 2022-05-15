@@ -6,7 +6,8 @@
   "license": "MIT",
   "scripts": {
     "test": "jest --no-cache --watchAll",
-    "start": "node index.js"
+    "test:coverage": "jest --no-cache --coverage",
+    "test:badges": "yarn test:coverage  && jest-coverage-badges"
   },
   "devDependencies": {
     "@faker-js/faker": "^6.3.1",
@@ -15,5 +16,8 @@
     "jest": "^28.1.0",
     "ts-jest": "^28.0.2",
     "typescript": "^4.6.4"
+  },
+  "dependencies": {
+    "jest-coverage-badges": "^1.1.2"
   }
 }
